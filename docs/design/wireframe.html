@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="en" data-theme="luxury">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scope — UX Wireframe (MVP)</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@5.5.19/daisyui.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@5.5.19/themes.css">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.2.4/dist/index.global.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    :where(.grid, .flex) > * { min-width: 0; }
+    :where(p, h1, h2, h3, h4, li, td, th, .badge) { overflow-wrap: anywhere; }
+    .mermaid { background: transparent; }
+    .wire { background: #1a1a1a; border: 1px solid #3a3a3a; border-radius: 8px; }
+    .wire-box { border: 1px dashed #5a5a5a; border-radius: 4px; padding: 8px; color: #b0b0b0; font-size: 12px; }
+    .wire-input { border: 1px solid #5a5a5a; border-radius: 3px; padding: 6px 10px; background: #0f0f0f; color: #d0d0d0; font-size: 13px; display: block; width: 100%; }
+    .wire-btn { border: 1px solid #888; border-radius: 3px; padding: 6px 14px; background: #2a2a2a; color: #e0e0e0; font-size: 13px; font-weight: 500; cursor: default; }
+    .wire-btn-primary { background: #d4a94a; color: #1a1a1a; border-color: #d4a94a; }
+    .wire-label { color: #909090; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
+    .wire-placeholder { color: #666; }
+    .screen-title { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+    .screen-num { background: #d4a94a; color: #1a1a1a; font-weight: 700; padding: 2px 10px; border-radius: 999px; font-size: 12px; }
+    .heat-cell { width: 22px; height: 22px; border: 1px solid #333; display: inline-block; }
+  </style>
+</head>
+<body class="bg-base-200 text-base-content">
+
+<main class="mx-auto max-w-6xl px-6 py-10 space-y-12">
+
+  <!-- Header -->
+  <header class="space-y-3">
+    <div class="flex items-center gap-3 flex-wrap">
+      <span class="badge badge-primary badge-lg">Wireframe</span>
+      <span class="badge badge-outline">MVP</span>
+      <span class="text-sm opacity-60">scope-app · pre-code review</span>
+    </div>
+    <h1 class="text-4xl font-bold tracking-tight">Scope — UX Wireframe (MVP)</h1>
+    <p class="text-lg opacity-80 max-w-3xl">
+      Five screens tracing the core flow: sign in → create term → upload syllabus →
+      review + approve → land on a dashboard where every uploaded course now lives as
+      data you can refer back to. Low-fidelity on purpose — annotate any box, label,
+      or copy you want changed.
+    </p>
+  </header>
+
+  <!-- Journey diagram -->
+  <section class="space-y-4">
+    <h2 class="text-2xl font-semibold">User journey — first-run</h2>
+    <div class="card card-border bg-base-100">
+      <div class="card-body">
+        <div class="mermaid">
+flowchart LR
+    A["1. Sign in / Sign up<br/>(allowlisted email)"] --> B["2. Welcome<br/>name + timezone"]
+    B --> C["3. Create first term<br/>Fall 2026 · Aug 25 – Dec 12"]
+    C --> D["4. Add course<br/>+ upload syllabus PDF"]
+    D --> E["5. Verifying questions<br/>(≤5, only what LLM can't resolve)"]
+    E --> F["6. Approval screen<br/>grouped by course &amp; series"]
+    F --> G["7. Dashboard — Today<br/>courses persist in sidebar"]
+    G -.repeat.-> D
+
+    classDef step fill:#3b3b1f,stroke:#eab308,color:#fef9c3,stroke-width:2px;
+    classDef land fill:#1e3a2a,stroke:#22c55e,color:#dcfce7,stroke-width:2px;
+    class A,B,C,D,E,F step;
+    class G land;
+        </div>
+        <p class="text-sm opacity-60 mt-3">Dashed loop = "add another course" from the dashboard, once first-run is complete.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 1: Sign in -->
+  <section class="space-y-3">
+    <div class="screen-title">
+      <span class="screen-num">1</span>
+      <h2 class="text-2xl font-semibold">Sign in with Google</h2>
+      <span class="text-sm opacity-60">— OAuth via Supabase Auth (per captain's decision)</span>
+    </div>
+    <div class="mockup-browser wire">
+      <div class="mockup-browser-toolbar"><div class="input">https://scope.app/login</div></div>
+      <div class="grid place-items-center px-6 py-14" style="background: #101010;">
+        <div class="w-full max-w-sm space-y-6" style="color: #e0e0e0;">
+          <div class="text-center space-y-1">
+            <div class="text-3xl font-semibold">Scope</div>
+            <div class="text-xs opacity-60">Forecast your semester.</div>
+          </div>
+          <div class="space-y-3">
+            <button class="w-full flex items-center justify-center gap-3 px-4 py-3 rounded border" style="background:#ffffff; color:#1a1a1a; border-color:#dadce0; font-weight:500; font-size:14px; cursor:default;">
+              <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+              <span>Continue with Google</span>
+            </button>
+            <div class="text-center text-xs opacity-60">
+              Access is by invite while we're small.
+              <br/>
+              Signing in with a non-allowlisted Google account shows a friendly "not yet" message.
+            </div>
+          </div>
+          <div class="text-center text-[10px] opacity-40 pt-4">
+            By continuing you agree to Scope's terms &amp; privacy.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-sm opacity-70 space-y-2">
+      <div><b>Change from architecture.md §10.6:</b> Google OAuth (via Supabase Auth's Google provider) replaces email + password. Same allowlist mechanism — SIGNUP_ALLOWLIST now checks the Google account's email. No password reset flow needed.</div>
+      <div><b>Requires captain-side setup (see notes below):</b> a Google Cloud project with an OAuth 2.0 client and consent screen, then the client ID/secret pasted into Supabase Auth.</div>
+    </div>
+  </section>
+
+  <!-- SCREEN 1b: OAuth consent screen preview -->
+  <section class="space-y-3">
+    <div class="screen-title">
+      <span class="screen-num">1b</span>
+      <h2 class="text-2xl font-semibold">Google OAuth consent screen (what your users will see)</h2>
+      <span class="text-sm opacity-60">— rendered by Google, styled by Google, we only pick the copy &amp; scopes</span>
+    </div>
+    <div class="mockup-browser wire">
+      <div class="mockup-browser-toolbar"><div class="input">https://accounts.google.com/o/oauth2/auth?...</div></div>
+      <div class="grid place-items-center px-6 py-10" style="background:#f8f9fa;">
+        <div class="max-w-md w-full rounded-lg shadow-lg p-8 space-y-5" style="background:#ffffff; color:#202124;">
+          <div class="flex items-center gap-3">
+            <svg width="24" height="24" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+            <span class="text-sm">Sign in — google.com</span>
+          </div>
+          <h3 class="text-xl font-medium">Sign in to continue to <b>Scope</b></h3>
+          <div class="text-sm" style="color:#5f6368;">
+            To continue, Google will share your <b>name, email address</b>,
+            language preference, and profile picture with Scope.
+          </div>
+          <div class="space-y-2">
+            <div class="border rounded p-3 flex items-center justify-between" style="border-color:#dadce0;">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full" style="background:#c78400;"></div>
+                <div>
+                  <div class="text-sm font-medium">Robert Haik</div>
+                  <div class="text-xs" style="color:#5f6368;">robbiehaik@gmail.com</div>
+                </div>
+              </div>
+              <div class="text-xs" style="color:#1a73e8;">→</div>
+            </div>
+            <div class="text-xs" style="color:#5f6368;">Use another account</div>
+          </div>
+          <div class="text-xs" style="color:#5f6368;">
+            Before using this app, you can review Scope's
+            <span style="color:#1a73e8;">privacy policy</span> and
+            <span style="color:#1a73e8;">terms of service</span>.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-sm opacity-70">
+      <b>Copy you'll need to write:</b> app name ("Scope"), support email, developer contact, privacy policy URL, terms of service URL, app logo (optional). Scope requests only the <code>openid</code>, <code>email</code>, <code>profile</code> scopes — nothing sensitive.
+    </div>
+  </section>
+
+  <!-- SCREEN 2: Create term -->
+  <section class="space-y-3">
+    <div class="screen-title">
+      <span class="screen-num">2</span>
+      <h2 class="text-2xl font-semibold">Create your first term</h2>
+      <span class="text-sm opacity-60">— linear three-step setup, not an empty dashboard</span>
+    </div>
+    <div class="mockup-browser wire">
+      <div class="mockup-browser-toolbar"><div class="input">https://scope.app/setup/term</div></div>
+      <div class="px-6 py-8" style="background: #101010;">
+        <div class="max-w-lg mx-auto space-y-6" style="color: #e0e0e0;">
+          <div class="flex items-center gap-2 text-xs opacity-70">
+            <span class="wire-btn" style="font-size: 10px; padding: 2px 8px;">Step 1 of 3</span>
+            <span>Term → Course → Syllabus</span>
+          </div>
+          <h3 class="text-xl font-semibold">What term are you starting?</h3>
+          <p class="text-sm opacity-70">Term dates are how Scope figures out "this week" and "next week." You can edit them later.</p>
+          <div class="grid grid-cols-1 gap-3">
+            <div>
+              <div class="wire-label">Term name</div>
+              <div class="wire-input"><span class="wire-placeholder">Fall 2026</span></div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <div class="wire-label">Start date</div>
+                <div class="wire-input"><span class="wire-placeholder">Aug 25, 2026</span></div>
+              </div>
+              <div>
+                <div class="wire-label">End date</div>
+                <div class="wire-input"><span class="wire-placeholder">Dec 12, 2026</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <div class="wire-btn wire-btn-primary">Continue →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-sm opacity-70">
+      <b>Notes:</b> §6 requires term dates in the DB; §10.6 requires a three-step setup instead of an empty dashboard.
+    </div>
+  </section>
+
+  <!-- SCREEN 3: Upload syllabus -->
+  <section class="space-y-3">
+    <div class="screen-title">
+      <span class="screen-num">3</span>
+      <h2 class="text-2xl font-semibold">Add course + upload syllabus</h2>
+      <span class="text-sm opacity-60">— the input step that generates every course you'll see later</span>
+    </div>
+    <div class="mockup-browser wire">
+      <div class="mockup-browser-toolbar"><div class="input">https://scope.app/setup/upload</div></div>
+      <div class="px-6 py-8" style="background: #101010;">
+        <div class="max-w-2xl mx-auto space-y-6" style="color: #e0e0e0;">
+          <div class="flex items-center gap-2 text-xs opacity-70">
+            <span class="wire-btn" style="font-size: 10px; padding: 2px 8px;">Step 3 of 3</span>
+            <span>Term ✓ · Course ✓ · Syllabus</span>
+          </div>
+          <h3 class="text-xl font-semibold">Upload your first syllabus</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <div class="wire-label">Course</div>
+              <div class="wire-input">Corporate Finance</div>
+            </div>
+            <div>
+              <div class="wire-label">Course code (optional)</div>
+              <div class="wire-input"><span class="wire-placeholder">FINC 3010</span></div>
+            </div>
+          </div>
+          <div class="wire-box text-center py-14" style="border-style: dashed; border-width: 2px;">
+            <div class="text-3xl mb-2">📄</div>
+            <div class="text-sm font-medium">Drop your syllabus PDF here</div>
+            <div class="text-xs opacity-60 mt-1">or click to browse · max 10 MB · max 60 pages</div>
+          </div>
+          <div class="text-xs opacity-50">
+            Scope reads the PDF, extracts assignments, and asks you a few questions before anything is saved.
+            You'll approve everything on the next screen.
+          </div>
+          <div class="flex justify-between">
+            <div class="wire-btn">← Back</div>
+            <div class="wire-btn wire-btn-primary">Extract →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-sm opacity-70">
+      <b>Notes:</b> extraction is synchronous at 5 users (ADR 0003).
+      A scanned-PDF or unreadable file bounces here with a plain error — no partial writes.
+    </div>
+  </section>
+
+  <!-- SCREEN 3.5: Verifying questions (compact) -->
+  <section class="space-y-3">
+    <div class="screen-title">
+      <span class="screen-num">3.5</span>
+      <h2 class="text-2xl font-semibold">Verifying questions</h2>
+      <span class="text-sm opacity-60">— up to 5, only things the LLM couldn't resolve</span>
+    </div>
+    <div class="mockup-browser wire">
+      <div class="mockup-browser-toolbar"><div class="input">https://scope.app/upload/verify</div></div>
+      <div class="px-6 py-8" style="background: #101010;">
+        <div class="max-w-2xl mx-auto space-y-4" style="color: #e0e0e0;">
+          <div class="text-sm opacity-70">3 questions · takes 30 seconds</div>
+          <div class="wire-box">
+            <div class="text-sm font-medium mb-2">Are weekly readings tracked items, or just schedule context?</div>
+            <div class="flex gap-2">
+              <div class="wire-btn">Track them</div>
+              <div class="wire-btn wire-btn-primary">Schedule only</div>
+            </div>
+          </div>
+          <div class="wire-box">
+            <div class="text-sm font-medium mb-2">"Problem Set every Friday" — start date?</div>
+            <div class="wire-input"><span class="wire-placeholder">Sep 5, 2026</span></div>
+          </div>
+          <div class="wire-box">
+            <div class="text-sm font-medium mb-2">The syllabus says "Midterm — Week 8." That's Oct 13–17. Which day?</div>
+            <div class="flex gap-2 flex-wrap">
+              <div class="wire-btn">Mon Oct 13</div>
+              <div class="wire-btn wire-btn-primary">Wed Oct 15</div>
+              <div class="wire-btn">Fri Oct 17</div>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <div class="wire-btn wire-btn-primary">Review extracted items →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-sm opacity-70">
+      <b>Notes:</b> hard cap of 5 questions (§10.4). Anything the LLM can't resolve about a single item is flagged
+      as <code>needs_review</code> on the approval screen instead of a question.
+    </div>
+  </section>
+
+  <!-- SCREEN 4: Approval screen -->
+  <section class="space-y-3">
+    <div class="screen-title">
+      <span class="screen-num">4</span>
+      <h2 class="text-2xl font-semibold">Review + approve extracted items</h2>
+      <span class="text-sm opacity-60">— grouped by course &amp; series, so 40 rows becomes 8 groups</span>
+    </div>
+    <div class="mockup-browser wire">
+      <div class="mockup-browser-toolbar"><div class="input">https://scope.app/upload/approve</div></div>
+      <div class="px-6 py-8" style="background: #101010;">
+        <div class="max-w-4xl mx-auto space-y-4" style="color: #e0e0e0;">
+          <div class="flex items-baseline justify-between">
+            <h3 class="text-lg font-semibold">Corporate Finance — 42 items across 4 groups</h3>
+            <div class="text-xs opacity-60">28 homework · 8 readings · 4 quizzes · 2 exams · <span style="color:#f0b846;">3 need your attention</span></div>
+          </div>
+
+          <div class="wire-box" style="border-color:#f0b846; background: rgba(240, 184, 70, 0.06);">
+            <div class="text-xs uppercase tracking-wide opacity-80" style="color:#f0b846;">⚠ Needs your attention</div>
+            <div class="text-sm mt-1"><b>"Final project — TBD"</b> · date unresolved</div>
+            <div class="flex gap-2 mt-2">
+              <div class="wire-input" style="width: 200px;"><span class="wire-placeholder">pick a date</span></div>
+              <div class="wire-btn">Dismiss item</div>
+            </div>
+          </div>
+
+          <div class="wire-box">
+            <div class="flex items-baseline justify-between">
+              <div class="text-sm"><b>Problem Set 1–12</b> · weekly, Fridays · Sep 5 – Nov 21 · <span class="opacity-60">12 items · magnitude 1</span></div>
+              <div class="flex gap-2">
+                <div class="wire-btn" style="font-size: 11px;">✎ edit cadence</div>
+                <div class="wire-btn wire-btn-primary" style="font-size: 11px;">▾ collapse</div>
+                <div class="wire-btn" style="font-size: 11px;">✕ remove all</div>
+              </div>
+            </div>
+            <div class="mt-3 border-t border-neutral-700 pt-2 space-y-1 text-xs" style="color:#c0c0c0;">
+              <div class="flex items-center justify-between border-b border-neutral-800 pb-1"><span>PS 1 · Sep 5</span><span class="opacity-60">homework · mag 1</span></div>
+              <div class="flex items-center justify-between border-b border-neutral-800 pb-1"><span>PS 2 · Sep 12</span><span class="opacity-60">homework · mag 1</span></div>
+              <div class="flex items-center justify-between border-b border-neutral-800 pb-1"><span>PS 3 · Sep 19</span><span class="opacity-60">homework · mag 1</span></div>
+              <div class="opacity-60 text-center italic pt-1">+ 9 more · click any row to edit inline</div>
+            </div>
+          </div>
+
+          <div class="wire-box">
+            <div class="flex items-baseline justify-between">
+              <div class="text-sm"><b>Readings</b> · 8 items · <span class="opacity-60">magnitude 1</span></div>
+              <div class="flex gap-2">
+                <div class="wire-btn" style="font-size: 11px;">▸ expand</div>
+                <div class="wire-btn" style="font-size: 11px;">✕ remove all</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wire-box">
+            <div class="flex items-baseline justify-between">
+              <div class="text-sm"><b>Quizzes 1–4</b> · every 3 weeks · <span class="opacity-60">4 items · magnitude 2</span></div>
+              <div class="flex gap-2">
+                <div class="wire-btn" style="font-size: 11px;">▸ expand</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wire-box">
+            <div class="flex items-baseline justify-between">
+              <div class="text-sm"><b>Midterm · Final</b> · 2 items · <span class="opacity-60">magnitude 3</span></div>
+              <div class="flex gap-2">
+                <div class="wire-btn" style="font-size: 11px;">▸ expand</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-between pt-2 border-t border-neutral-700">
+            <div class="wire-btn">Discard entire upload</div>
+            <div class="flex gap-2">
+              <div class="wire-btn">Back</div>
+              <div class="wire-btn wire-btn-primary">Approve all 42</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-sm opacity-70">
+      <b>Notes:</b> nothing lands in the assignments table until this screen is approved (§10.4).
+      Series collapse is what makes review possible without rubber-stamping.
+      Single write in one transaction on approve.
+    </div>
+  </section>
+
+  <!-- SCREEN 5: Dashboard - Today -->
+  <section class="space-y-3">
+    <div class="screen-title">
+      <span class="screen-num">5</span>
+      <h2 class="text-2xl font-semibold">Dashboard — Today</h2>
+      <span class="text-sm opacity-60">— courses now persist as data in the sidebar</span>
+    </div>
+    <div class="mockup-browser wire">
+      <div class="mockup-browser-toolbar"><div class="input">https://scope.app/today</div></div>
+      <div class="grid grid-cols-12 gap-0" style="background: #101010; min-height: 500px;">
+
+        <!-- Sidebar -->
+        <aside class="col-span-3 p-4 border-r border-neutral-800 space-y-4" style="background: #0a0a0a;">
+          <div class="text-sm font-semibold" style="color:#e0e0e0;">Scope</div>
+          <div class="text-xs opacity-60" style="color:#909090;">Fall 2026 ▾ <span class="opacity-50">(past terms)</span></div>
+
+          <div class="space-y-1">
+            <div class="wire-label">Courses (3)</div>
+            <div class="flex items-center gap-2 text-xs" style="color:#d0d0d0;"><span class="heat-cell" style="background:#c78400; width:10px; height:10px;"></span> Corporate Finance</div>
+            <div class="flex items-center gap-2 text-xs" style="color:#d0d0d0;"><span class="heat-cell" style="background:#2a7da8; width:10px; height:10px;"></span> Statistics</div>
+            <div class="flex items-center gap-2 text-xs" style="color:#d0d0d0;"><span class="heat-cell" style="background:#6a8e3a; width:10px; height:10px;"></span> Constitutional Law</div>
+            <div class="text-xs opacity-50 pt-1" style="color:#808080;">+ Add course</div>
+          </div>
+
+          <div class="pt-3 border-t border-neutral-800">
+            <div class="wire-label">Views</div>
+            <div class="text-xs" style="color:#e0e0e0;">◉ Today</div>
+            <div class="text-xs opacity-70" style="color:#c0c0c0;">○ Workload</div>
+            <div class="text-xs opacity-70" style="color:#c0c0c0;">○ Runway</div>
+          </div>
+
+          <div class="pt-3 border-t border-neutral-800 text-xs opacity-50" style="color:#808080;">
+            Trash · Settings
+          </div>
+        </aside>
+
+        <!-- Main -->
+        <section class="col-span-9 p-6 space-y-5" style="color:#e0e0e0;">
+          <div>
+            <div class="text-xs opacity-60">Wednesday, Aug 26 · 10:25 PM</div>
+            <h3 class="text-2xl font-semibold mt-1">Today</h3>
+          </div>
+
+          <!-- Start tonight — promoted to hero banner per captain -->
+          <div class="rounded-lg p-5 flex items-center justify-between" style="background:linear-gradient(135deg, rgba(212,169,74,0.18), rgba(199,132,0,0.08)); border:1px solid rgba(212,169,74,0.45);">
+            <div>
+              <div class="text-[11px] uppercase tracking-widest font-semibold" style="color:#d4a94a;">Start tonight</div>
+              <div class="text-xl font-semibold mt-1" style="color:#f5e9c8;">Problem Set 2</div>
+              <div class="text-sm opacity-80 mt-1">Corporate Finance · due tomorrow 11:59 PM · sits on your biggest day.</div>
+            </div>
+            <div class="flex gap-2">
+              <div class="wire-btn" style="border-color:#d4a94a; color:#d4a94a; background:transparent;">Snooze</div>
+              <div class="wire-btn wire-btn-primary">Open →</div>
+            </div>
+          </div>
+
+          <div class="wire-box" style="border-color:#c78400; background: rgba(199,132,0,0.08);">
+            <div class="text-xs uppercase tracking-wide" style="color:#c78400;">Heavy day tomorrow</div>
+            <div class="text-sm mt-1"><b>Thursday</b> is your biggest day this week — 3 items, magnitude 6.</div>
+          </div>
+
+          <div>
+            <div class="wire-label" style="color:#a0a0a0;">Due in the next 48 hours (4)</div>
+            <div class="space-y-2">
+              <div class="wire-box flex items-center justify-between">
+                <div>
+                  <div class="text-sm font-medium">Problem Set 2</div>
+                  <div class="text-xs opacity-60"><span style="color:#c78400;">●</span> Corporate Finance · homework · <b>due tomorrow 11:59 PM</b></div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs opacity-50">☐</span>
+                  <span class="text-xs opacity-50">☆</span>
+                </div>
+              </div>
+              <div class="wire-box flex items-center justify-between">
+                <div>
+                  <div class="text-sm font-medium">Chapter 4 reading</div>
+                  <div class="text-xs opacity-60"><span style="color:#2a7da8;">●</span> Statistics · reading · <b>due tomorrow</b></div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs opacity-50">☐</span>
+                  <span class="text-xs opacity-50">☆</span>
+                </div>
+              </div>
+              <div class="wire-box flex items-center justify-between">
+                <div>
+                  <div class="text-sm font-medium">Quiz 1</div>
+                  <div class="text-xs opacity-60"><span style="color:#c78400;">●</span> Corporate Finance · quiz · <b>due Thursday</b></div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs opacity-50">☐</span>
+                  <span class="text-xs opacity-50">☆</span>
+                </div>
+              </div>
+              <div class="wire-box flex items-center justify-between">
+                <div>
+                  <div class="text-sm font-medium">Case brief: Marbury v. Madison</div>
+                  <div class="text-xs opacity-60"><span style="color:#6a8e3a;">●</span> Con Law · homework · <b>due Friday</b></div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs opacity-50">☐</span>
+                  <span class="text-xs opacity-50">☆</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+    </div>
+    <div class="text-sm opacity-70">
+      <b>Notes:</b> "Courses persist as data" is the whole left rail — three courses uploaded, each with color coding
+      that carries through every card. This is the answer to "input documents → generate courses → refer back to them."
+      Workload and Runway are separate views (gated by data thresholds per §10.2); a follow-up wireframe can cover those.
+    </div>
+  </section>
+
+  <!-- Referenced-only views -->
+  <section class="space-y-4">
+    <h2 class="text-2xl font-semibold">Beyond MVP — referenced but not wireframed here</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="card card-border bg-base-100">
+        <div class="card-body">
+          <span class="badge badge-neutral">View</span>
+          <h3 class="card-title text-base">Workload</h3>
+          <p class="text-sm opacity-80">Weekly load chart, peak week, clearest window, per-course share, weekday rhythm. Gated at 1 course · 12 assignments · ≥3 weeks.</p>
+        </div>
+      </div>
+      <div class="card card-border bg-base-100">
+        <div class="card-body">
+          <span class="badge badge-neutral">View</span>
+          <h3 class="card-title text-base">Runway</h3>
+          <p class="text-sm opacity-80">Heat map, per-course swimlanes, collisions, open windows, big rocks, load-ahead pace. Gated at 2 courses · 20 assignments · ≥6 weeks.</p>
+        </div>
+      </div>
+      <div class="card card-border bg-base-100">
+        <div class="card-body">
+          <span class="badge badge-neutral">Flow</span>
+          <h3 class="card-title text-base">End-of-term handoff</h3>
+          <p class="text-sm opacity-80">"Fall 2026 has ended. Start a new term?" prompt (§10.1). Not first-run, but the second most important flow in the app.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Decisions -->
+  <section class="space-y-4">
+    <h2 class="text-2xl font-semibold">Decisions locked from this review</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+      <div class="card card-border bg-base-100">
+        <div class="card-body">
+          <div class="flex items-center gap-2">
+            <span class="badge badge-success">Decided</span>
+            <span class="text-xs opacity-60">Auth</span>
+          </div>
+          <h3 class="card-title text-base">Google OAuth as the sign-in path</h3>
+          <p class="text-sm opacity-80">
+            Supabase Auth + Google provider replaces email/password. Allowlist checks the
+            Google account email. Google Cloud Console + OAuth consent screen still needs
+            captain hands-on-browser setup — see the OAuth prep guide committed to the repo.
+          </p>
+        </div>
+      </div>
+
+      <div class="card card-border bg-base-100">
+        <div class="card-body">
+          <div class="flex items-center gap-2">
+            <span class="badge badge-success">Decided</span>
+            <span class="text-xs opacity-60">Approval</span>
+          </div>
+          <h3 class="card-title text-base">Summary line stays, expand becomes prominent</h3>
+          <p class="text-sm opacity-80">
+            Glance-level summary confirmed. Each series row shows expand as a primary action so
+            individual items are always one click from inspection.
+          </p>
+        </div>
+      </div>
+
+      <div class="card card-border bg-base-100">
+        <div class="card-body">
+          <div class="flex items-center gap-2">
+            <span class="badge badge-success">Decided</span>
+            <span class="text-xs opacity-60">Dashboard</span>
+          </div>
+          <h3 class="card-title text-base">Land on Today for MVP</h3>
+          <p class="text-sm opacity-80">
+            Always route the signed-in user to Today. "Remember last view" deferred to
+            post-MVP once we know if users actually roam between views.
+          </p>
+        </div>
+      </div>
+
+      <div class="card card-border bg-base-100">
+        <div class="card-body">
+          <div class="flex items-center gap-2">
+            <span class="badge badge-success">Decided</span>
+            <span class="text-xs opacity-60">Today</span>
+          </div>
+          <h3 class="card-title text-base">"Start tonight" promoted to hero banner</h3>
+          <p class="text-sm opacity-80">
+            Now the first thing users see on Today. Gold gradient + primary "Open" action,
+            still wireframe-clean, still one focused suggestion.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="text-xs opacity-50 pt-6 border-t border-base-300">
+    Design: Lavish-recommended Tailwind v4 + DaisyUI v5 (luxury theme), plus custom monochrome wireframe styling.
+    Reason: scope-app has no code yet, so no product design system exists to match.
+  </footer>
+
+</main>
+
+<!-- Mermaid -->
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.15.0/dist/mermaid.esm.min.mjs";
+  const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const paint = document.createElement("canvas").getContext("2d");
+  function toRgba(c){ paint.clearRect(0,0,1,1); paint.fillStyle="#000"; paint.fillStyle=c; paint.fillRect(0,0,1,1); return paint.getImageData(0,0,1,1).data; }
+  function composite(f,b){ const fa=f[3]/255, ba=b[3]/255; const a=fa+ba*(1-fa); if(a===0) return [0,0,0,0]; return [(f[0]*fa+b[0]*ba*(1-fa))/a,(f[1]*fa+b[1]*ba*(1-fa))/a,(f[2]*fa+b[2]*ba*(1-fa))/a,a*255]; }
+  function pageIsDark(){ const root=document.documentElement; const rb=toRgba(getComputedStyle(root).backgroundColor); const bb=document.body?toRgba(getComputedStyle(document.body).backgroundColor):[0,0,0,0]; const [r,g,b,a]=composite(bb,rb); if(a>0) return (0.2126*r+0.7152*g+0.0722*b)/255 < 0.5; return darkQuery.matches; }
+  const diagrams=[...document.querySelectorAll(".mermaid")].map(el=>({el,src:el.textContent}));
+  let applied, rendering=false, queued=false;
+  function queueRender(){ queued=true; if(!rendering) void render(); }
+  async function render(){ rendering=true; try{ while(queued){ queued=false; const theme=pageIsDark()?"dark":"default"; if(theme===applied) continue; mermaid.initialize({startOnLoad:false,theme,securityLevel:"strict"}); for(const {el,src} of diagrams){ el.removeAttribute("data-processed"); el.textContent=src; } try{ await mermaid.run({nodes:diagrams.map(d=>d.el)}); } catch(e){ console.error("mermaid failed:",e); return; } applied=theme; } } finally { rendering=false; if(queued) queueRender(); } }
+  if(document.readyState==="complete") queueRender(); else window.addEventListener("load", queueRender, {once:true});
+  const obs=new MutationObserver(queueRender);
+  for(const el of [document.documentElement, document.body]) if(el) obs.observe(el,{attributes:true,attributeFilter:["data-theme","class","style"]});
+  darkQuery.addEventListener("change", queueRender);
+</script>
+
+</body>
+</html>
