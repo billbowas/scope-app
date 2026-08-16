@@ -1,0 +1,41 @@
+<!-- @dsCard group="Components" viewport="700x420" name="App patterns" subtitle="Hero banner, insight band, assignment rows, series group, gates" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{padding:20px;display:flex;flex-direction:column;gap:14px}</style>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const NS = window.ScopeDesignSystem_8aa58a;
+const { Button, Badge, HeroBanner, InsightBand, AssignmentRow, SeriesGroup, StepBar, StatTile, LockedTab, DropZone } = NS;
+function Demo(){
+  const [open,setOpen]=React.useState(true);
+  const [done,setDone]=React.useState(false);
+  return <div style={{display:"flex",flexDirection:"column",gap:14}}>
+    <StepBar step={3} total={3} labels={["Term","Course","Syllabus"]}/>
+    <HeroBanner title="Problem Set 2" detail="Corporate Finance · due tomorrow 11:59 PM · sits on your biggest day."
+      actions={<><Button variant="ghost">Snooze</Button><Button variant="primary" iconAfter="→">Open</Button></>}/>
+    <InsightBand label="Heavy day tomorrow"><b>Thursday</b> is your biggest day this week — 3 items, magnitude 6.</InsightBand>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:12}}>
+      <StatTile label="Peak week" value={41} unit="load" sub="Week 8 · Oct 13–19" tone="accent"/>
+      <StatTile label="Clearest window" value={14} unit="load" sub="Week 3 · Sep 8–14"/>
+      <StatTile label="Term progress" value="18%" sub="3 of 16 weeks"/>
+    </div>
+    <AssignmentRow title="Problem Set 2" course="Corporate Finance" courseColor="var(--course-1)" type="homework"
+      due="due tomorrow 11:59 PM" complete={done} onToggleComplete={()=>setDone(!done)} watched/>
+    <AssignmentRow title="Final project — TBD" course="Corporate Finance" courseColor="var(--course-1)" type="project" magnitude={3} needsReview/>
+    <SeriesGroup title="Problem Set 1–12" cadence="weekly, Fridays" range="Sep 5 – Nov 21" count={12} magnitude={1}
+      expanded={open} onToggle={()=>setOpen(!open)} moreLabel="+ 9 more · click any row to edit inline"
+      actions={<><Button size="sm">✎ edit cadence</Button><Button size="sm" variant="danger">✕ remove all</Button></>}>
+      <AssignmentRow title="PS 1" course="Corporate Finance" courseColor="var(--course-1)" type="homework" due="Sep 5" magnitude={1}/>
+      <AssignmentRow title="PS 2" course="Corporate Finance" courseColor="var(--course-1)" type="homework" due="Sep 12" magnitude={1}/>
+    </SeriesGroup>
+    <DropZone/>
+    <LockedTab view="Runway" have="You have 1 course and 14 assignments."
+      needs="Runway opens at 2 courses and 20 assignments."
+      action={<Button variant="primary">Upload another syllabus</Button>}/>
+  </div>;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo/>);
+</script></body></html>

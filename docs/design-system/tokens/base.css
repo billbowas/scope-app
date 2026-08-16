@@ -1,0 +1,12 @@
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--text-body);font-family:var(--font-ui);font-size:var(--size-body);line-height:var(--leading-normal);-webkit-font-smoothing:antialiased;text-wrap:pretty}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:var(--weight-semibold);letter-spacing:var(--tracking-tight);line-height:var(--leading-snug);margin:0;color:var(--text-primary)}
+p{margin:0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--gold-a45);transition:var(--transition-control)}
+a:hover{color:var(--gold-400);border-bottom-color:var(--gold-400)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
+::selection{background:var(--gold-a18);color:var(--gold-300)}
+.scope-label{font-family:var(--font-meta);font-size:var(--size-label);text-transform:uppercase;letter-spacing:var(--tracking-label);color:var(--text-muted)}
+.scope-meta{font-family:var(--font-meta);font-size:var(--size-small);color:var(--text-muted)}
+.scope-data{font-family:var(--font-data);font-variant-numeric:tabular-nums}

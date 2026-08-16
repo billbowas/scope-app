@@ -1,0 +1,28 @@
+<!-- @dsCard group="Components" viewport="700x420" name="Forecast charts" subtitle="Heat map, weekly load bars, per-course swimlanes" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{padding:20px;display:flex;flex-direction:column;gap:20px}</style>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const { HeatMap, LoadChart, Swimlane, Card } = window.ScopeDesignSystem_8aa58a;
+const cells=[];
+for(let w=0;w<15;w++)for(let d=0;d<7;d++){const l=(w===7&&d<5)?6:(d>4?0:Math.round(Math.abs(Math.sin(w*1.7+d))*4));if(l)cells.push({week:w,day:d,load:l,items:Math.max(1,Math.round(l/2)),label:`W${w+1} day ${d+1}`});}
+const bars=[12,18,14,22,26,20,31,41,28,24,33,22,19,27,15].map((v,i)=>({label:`W${i+1}`,value:v,peak:v===41}));
+function Demo(){
+  return <div style={{display:"flex",flexDirection:"column",gap:20}}>
+    <Card title="Weekly load" meta="15 weeks · Aug 25 – Dec 12"><LoadChart bars={bars} average={24} unit="load"/></Card>
+    <Card title="Term heat map" meta="Hover a day · click to filter"><HeatMap weeks={15} cells={cells} today={{week:0,day:2}} onCellClick={()=>{}}/></Card>
+    <Card title="Per-course timeline" meta="Collision · Sep 14–16">
+      <Swimlane weeks={15} collisions={[{week:6}]} courses={[
+        {name:"Corporate Finance",color:"var(--course-1)",items:[{week:1,label:"PS 1",magnitude:1,date:"Sep 5"},{week:3,label:"Quiz 1",magnitude:2},{week:6,label:"Midterm",magnitude:3},{week:13,label:"Final",magnitude:3}]},
+        {name:"Statistics",color:"var(--course-2)",items:[{week:2,label:"Reading 2",magnitude:1},{week:6,label:"Project",magnitude:3},{week:9,label:"Quiz 3",magnitude:2}]},
+        {name:"Constitutional Law",color:"var(--course-3)",items:[{week:4,label:"Case brief",magnitude:1},{week:6,label:"Paper 1",magnitude:3},{week:11,label:"Paper 2",magnitude:3}]}
+      ]}/>
+    </Card>
+  </div>;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo/>);
+</script></body></html>

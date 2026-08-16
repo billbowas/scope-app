@@ -1,0 +1,46 @@
+<!-- @dsCard group="Components" viewport="700x300" name="Core controls" subtitle="Button variants, inputs, badges, segmented toggle" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{padding:20px;display:flex;flex-direction:column;gap:16px}.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}</style>
+</head><body><div id="root"></div>
+<script type="text/babel">
+const { Button, Input, Select, Badge, SegmentedToggle } = window.ScopeDesignSystem_8aa58a;
+function Demo(){
+  const [mode,setMode]=React.useState("load");
+  return <div style={{display:"flex",flexDirection:"column",gap:16}}>
+    <div className="row">
+      <Button variant="primary" iconAfter="→">Approve all 42</Button>
+      <Button>Snooze</Button>
+      <Button variant="ghost">Snooze</Button>
+      <Button variant="quiet">+ Add course</Button>
+      <Button variant="danger">Discard entire upload</Button>
+      <Button disabled>Extract →</Button>
+    </div>
+    <div className="row">
+      <Button size="sm">✎ edit cadence</Button>
+      <Button size="sm" variant="primary">▸ expand</Button>
+      <Button size="lg" variant="primary">Continue →</Button>
+      <SegmentedToggle value={mode} onChange={setMode} options={[{value:"load",label:"Load"},{value:"items",label:"Items"}]}/>
+    </div>
+    <div className="row" style={{alignItems:"flex-end"}}>
+      <Input label="Term name" placeholder="Fall 2026" width="180px"/>
+      <Input label="Start date" mono placeholder="Aug 25, 2026" width="150px"/>
+      <Input label="Due date" mono value="Oct 15, 2026" invalid hint="Outside your term dates" width="170px"/>
+      <Select label="Viewing" dots width="190px" value="all" options={[{value:"all",label:"All courses"},{value:"f",label:"Corporate Finance",color:"var(--course-1)"}]}/>
+    </div>
+    <div className="row">
+      <Badge pill tone="accent">Step 1 of 3</Badge>
+      <Badge tone="warn">Scope wasn’t sure</Badge>
+      <Badge tone="ok">Approved</Badge>
+      <Badge tone="danger">Extraction failed</Badge>
+      <Badge>homework</Badge>
+      <Badge mono>mag 3</Badge>
+      <Badge tone="outline">reading</Badge>
+    </div>
+  </div>;
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Demo/>);
+</script></body></html>

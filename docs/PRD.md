@@ -39,6 +39,8 @@ The **daily digest email** ships at MVP too: minimal — subject line is the cou
 
 **Wireframe:** see [`design/wireframe.html`](./design/wireframe.html) — five screens (Sign in, Create term, Upload syllabus, Approval, Dashboard/Today) with a walk-through of the OAuth consent screen and Google Cloud prep.
 
+**Design system:** see [`design-system/readme.md`](./design-system/readme.md) — full tokens (`tokens/*.css`), core + app + data-viz components as JSX references, `ui_kits/scope-app/*.jsx` for click-through screens. The `.jsx` files are reference implementations only — production code translates them into Jinja templates + Alpine, using `tokens/*.css` and `styles.css` directly (this is Flask + Jinja + Alpine, not React). The design system is the visual ground truth; the wireframe is superseded for polish decisions.
+
 ## 3. Locked technical decisions
 
 Full rationale lives in [`../architecture.md`](../architecture.md); this is the short list of what's decided so far. See [`design/tech-stack-review.html`](./design/tech-stack-review.html) for the annotated review.
