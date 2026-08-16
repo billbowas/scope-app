@@ -26,6 +26,34 @@ Before writing any code, read [`architecture.md`](./architecture.md). It's the s
 - **Host:** Fly.io, pinned to one machine
 - **CI guard:** grep on `domain/` imports to enforce the dependency rule
 
+## Development
+
+### Setup
+
+1. Clone the repository
+2. Copy the example environment file: `cp .env.example .env`
+3. Fill in required values in `.env` (see `architecture.md §4` for required keys)
+4. Install dependencies: `pip install -e ".[dev]"`
+5. Run the app: `flask --app scope.app run`
+
+The app will start on `http://localhost:5000`. The `/healthz` endpoint returns:
+
+```json
+{"status":"ok","app":"scope"}
+```
+
+### Running tests
+
+```bash
+pytest
+```
+
+### Code quality
+
+```bash
+ruff check scope tests
+```
+
 ## Status
 
-Planning stage. No code yet.
+Foundation slice in progress. Basic Flask app with `/healthz` endpoint, domain layer scaffold, and Alembic wiring.
