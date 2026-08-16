@@ -1,0 +1,39 @@
+:root{
+  --font-serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --font-sans:"IBM Plex Sans","Helvetica Neue",Helvetica,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  /* serif carries every heading, hero and metric; sans is for labels + meta only */
+  --font-display:var(--font-serif);
+  --font-ui:var(--font-serif);
+  --font-meta:var(--font-sans);
+  --font-data:var(--font-mono);
+
+  /* scale — importance is expressed by size, so the top end is deliberately large */
+  --size-metric:56px;
+  --size-hero:40px;
+  --size-display:32px;
+  --size-title:25px;
+  --size-heading:20px;
+  --size-subtitle:17px;
+  --size-body:15px;
+  --size-small:13px;
+  --size-micro:11.5px;
+  --size-label:11px;
+
+  --leading-tight:1.05;
+  --leading-snug:1.2;
+  --leading-normal:1.45;
+  --leading-relaxed:1.6;
+
+  --weight-light:300;
+  --weight-regular:400;
+  --weight-medium:500;
+  --weight-semibold:600;
+  --weight-bold:700;
+
+  --tracking-tight:-0.015em;
+  --tracking-normal:0;
+  --tracking-label:0.06em;
+  --tracking-wide:0.14em;
+}

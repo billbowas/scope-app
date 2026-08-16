@@ -28,19 +28,25 @@ Before writing any code, read [`architecture.md`](./architecture.md). It's the s
 
 ## Development
 
-### Setup
+### First-time setup
 
-1. Clone the repository
-2. Copy the example environment file: `cp .env.example .env`
-3. Fill in required values in `.env` (see `architecture.md §4` for required keys)
-4. Install dependencies: `pip install -e ".[dev]"`
-5. Run the app: `flask --app scope.app run`
+1. Create a Supabase project at https://supabase.com (if not already done)
+2. Enable Google as an OAuth provider in Supabase Auth:
+   - Go to Project Settings → Auth → Providers
+   - Enable Google and add your OAuth client ID/secret
+3. Clone the repository
+4. Copy `.env` from the primary checkout and fill in Supabase credentials:
+   ```bash
+   cp /path/to/primary/.env .env
+   ```
+   Required keys: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_KEY`, `DATABASE_URL`, `SECRET_KEY`, `SIGNUP_ALLOWLIST`
+5. Install dependencies: `pip install -e ".[dev]"`
+6. Run migrations: `alembic upgrade head`
+7. Run the app: `flask --app scope.app run`
 
-The app will start on `http://localhost:5000`. The `/healthz` endpoint returns:
-
-```json
-{"status":"ok","app":"scope"}
-```
+The app will start on `http://localhost:5000`:
+- Visit `/auth/signin` to test Google OAuth (will redirect to Google's consent screen)
+- The `/healthz` endpoint returns `{"status":"ok","app":"scope"}`
 
 ### Running tests
 
@@ -56,4 +62,6 @@ ruff check scope tests
 
 ## Status
 
-Foundation slice in progress. Basic Flask app with `/healthz` endpoint, domain layer scaffold, and Alembic wiring.
+**Slice 1 (Foundation):** Complete. Basic Flask app, domain layer, Alembic.
+**Slice 2 (Auth + First-Run):** Complete. Google OAuth, profiles table, signup trigger, sign-in and setup templates, welcome wizard, default-deny guard.
+**Slice 3 (Scoped Repos + RLS):** In progress. Repository model, two-account Playwright test, RLS enforcement.

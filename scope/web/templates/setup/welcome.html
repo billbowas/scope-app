@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome — Scope{% endblock %}
+
+{% block content %}
+<div style="height: 100%; overflow: auto; background: var(--canvas); padding: var(--space-11) var(--gutter-page);">
+    <div style="max-width: var(--measure-form); margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-7);">
+        <div style="padding: var(--space-4); background: var(--info-background); border: 1px solid var(--info-border); border-radius: var(--radius-sm); text-align: center;">
+            <div style="font-family: var(--font-meta); font-size: var(--size-small); color: var(--text-primary);">Step 1 of 3</div>
+        </div>
+
+        <div>
+            <h1 style="font-size: var(--size-title);">Welcome to Scope</h1>
+            <p style="margin-top: var(--space-4); font-family: var(--font-meta); font-size: var(--size-small); color: var(--text-muted);">Let's set up your profile to get started.</p>
+        </div>
+
+        <form method="post" style="display: flex; flex-direction: column; gap: var(--space-5);">
+            <div>
+                <label for="display_name" style="display: block; margin-bottom: var(--space-3); font-family: var(--font-meta); font-size: var(--size-small); font-weight: var(--weight-semibold); color: var(--text-primary);">Your name</label>
+                <input type="text" id="display_name" name="display_name" placeholder="Alex" required style="width: 100%; padding: var(--space-3) var(--space-4); border: 1px solid var(--border-card); border-radius: var(--radius-sm); font-family: var(--font-meta); font-size: var(--size-body); color: var(--text-primary); background: var(--surface-field);">
+            </div>
+
+            <div>
+                <label for="timezone" style="display: block; margin-bottom: var(--space-3); font-family: var(--font-meta); font-size: var(--size-small); font-weight: var(--weight-semibold); color: var(--text-primary);">Timezone</label>
+                <select id="timezone" name="timezone" style="width: 100%; padding: var(--space-3) var(--space-4); border: 1px solid var(--border-card); border-radius: var(--radius-sm); font-family: var(--font-meta); font-size: var(--size-body); color: var(--text-primary); background: var(--surface-field);">
+                    {% for tz in timezones %}
+                    <option value="{{ tz }}" {% if tz == "America/New_York" %}selected{% endif %}>{{ tz }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; padding-top: var(--space-3);">
+                <button type="submit" style="padding: 12px 24px; background: var(--action-primary); color: var(--surface-field); border: none; border-radius: var(--radius-sm); font-family: var(--font-meta); font-size: 14px; font-weight: 500; cursor: pointer;">Continue</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

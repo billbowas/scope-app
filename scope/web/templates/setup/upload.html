@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Syllabus — Scope{% endblock %}
+
+{% block content %}
+<div style="height: 100%; overflow: auto; background: var(--canvas); padding: var(--space-11) var(--gutter-page);">
+    <div style="max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-7);">
+        <div style="padding: var(--space-4); background: var(--info-background); border: 1px solid var(--info-border); border-radius: var(--radius-sm); text-align: center;">
+            <div style="font-family: var(--font-meta); font-size: var(--size-small); color: var(--text-primary);">Step 3 of 3</div>
+        </div>
+
+        <div>
+            <h1 style="font-size: var(--size-title);">Upload your first syllabus</h1>
+        </div>
+
+        <form method="post" style="display: flex; flex-direction: column; gap: var(--space-7);">
+            <div style="padding: var(--space-6); border: 2px dashed var(--border-card); border-radius: var(--radius-md); text-align: center; background: var(--surface-field);">
+                <div style="font-family: var(--font-meta); font-size: var(--size-small); color: var(--text-muted); line-height: 1.6;">
+                    Drop a PDF here or <span style="color: var(--action-primary); cursor: pointer; text-decoration: underline;">click to browse</span>
+                </div>
+            </div>
+
+            <div style="font-family: var(--font-meta); font-size: var(--size-micro); color: var(--text-faint); line-height: 1.6;">
+                Scope reads the PDF, extracts assignments, and asks you a few questions before anything is saved. You'll approve everything on the next screen.
+            </div>
+
+            <div style="display: flex; justify-content: space-between;">
+                <a href="{{ url_for('today') }}" style="padding: 12px 24px; background: transparent; color: var(--action-primary); border: 1px solid var(--border-card); border-radius: var(--radius-sm); font-family: var(--font-meta); font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: none;">Skip for now</a>
+                <button type="submit" style="padding: 12px 24px; background: var(--action-primary); color: var(--surface-field); border: none; border-radius: var(--radius-sm); font-family: var(--font-meta); font-size: 14px; font-weight: 500; cursor: pointer;">Extract</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
