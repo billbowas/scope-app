@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Scope{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='design-system/tokens/fonts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='design-system/tokens/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='design-system/tokens/colors.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='design-system/tokens/spacing.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='design-system/tokens/typography.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='design-system/tokens/shape.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='design-system/tokens/motion.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='design-system/styles.css') }}">
+</head>
+<body>
+    {% block content %}{% endblock %}
+</body>
+</html>

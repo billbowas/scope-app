@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Today — Scope{% endblock %}
+
+{% block content %}
+<div style="display: flex; height: 100vh; background: var(--canvas);">
+    <!-- Sidebar -->
+    <div style="width: 240px; border-right: 1px solid var(--border-card); padding: var(--space-6); overflow-y: auto; background: var(--surface-card);">
+        <div style="display: flex; flex-direction: column; gap: var(--space-6);">
+            <div style="font-family: var(--font-display); font-size: var(--size-title); color: var(--text-primary);">Scope</div>
+            <div style="padding-top: var(--space-4); border-top: 1px solid var(--border-card);">
+                <div style="font-family: var(--font-meta); font-size: var(--size-small); color: var(--text-muted); margin-bottom: var(--space-3);">Welcome</div>
+                <div style="font-family: var(--font-display); font-size: var(--size-subtitle); color: var(--text-primary);">{{ display_name or "User" }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div style="flex: 1; overflow-y: auto; padding: var(--space-11) var(--gutter-page);">
+        <div style="max-width: 680px; display: flex; flex-direction: column; gap: var(--space-7);">
+            <div>
+                <div style="font-family: var(--font-meta); font-size: var(--size-micro); color: var(--text-muted);">Wednesday, Aug 26 · 10:25 PM</div>
+                <h1 style="margin-top: var(--space-3); font-size: var(--size-display); color: var(--text-primary);">Today</h1>
+            </div>
+
+            <div style="padding: var(--space-6); background: var(--surface-card); border: 1px solid var(--border-card); border-radius: var(--radius-md);">
+                <div style="font-family: var(--font-display); font-size: var(--size-subtitle); color: var(--text-primary);">Problem Set 2</div>
+                <div style="margin-top: var(--space-3); font-family: var(--font-meta); font-size: var(--size-body); color: var(--text-muted);">Corporate Finance · due tomorrow 11:59 PM · sits on your biggest day.</div>
+                <div style="margin-top: var(--space-4); display: flex; gap: var(--space-4);">
+                    <button style="padding: 8px 16px; background: transparent; color: var(--action-primary); border: 1px solid var(--border-card); border-radius: var(--radius-sm); font-family: var(--font-meta); font-size: 14px; cursor: pointer;">Snooze</button>
+                    <button style="padding: 8px 16px; background: var(--action-primary); color: var(--surface-field); border: none; border-radius: var(--radius-sm); font-family: var(--font-meta); font-size: 14px; cursor: pointer;">Open</button>
+                </div>
+            </div>
+
+            <div style="padding: var(--space-5); background: var(--info-background); border: 1px solid var(--info-border); border-radius: var(--radius-md);">
+                <div style="font-family: var(--font-meta); font-size: var(--size-small); color: var(--text-primary);">
+                    Heavy day tomorrow: <b>Thursday</b> is your biggest day this week — 3 items, magnitude 6.
+                </div>
+            </div>
+
+            <div>
+                <div style="margin-bottom: var(--space-4); font-family: var(--font-meta); font-size: var(--size-small); font-weight: 500; color: var(--text-primary);">Due in the next 48 hours (4)</div>
+                <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                    <div style="padding: var(--space-4); background: var(--surface-card); border: 1px solid var(--border-card); border-radius: var(--radius-sm); display: flex; align-items: center; gap: var(--space-4);">
+                        <div style="width: 24px; height: 24px; border-radius: 4px; background: var(--course-1);"></div>
+                        <div style="flex: 1;">
+                            <div style="font-family: var(--font-display); font-size: var(--size-body); color: var(--text-primary);">Problem Set 2</div>
+                            <div style="font-family: var(--font-meta); font-size: var(--size-small); color: var(--text-muted);">Corporate Finance · due tomorrow 11:59 PM</div>
+                        </div>
+                    </div>
+                    <div style="padding: var(--space-4); background: var(--surface-card); border: 1px solid var(--border-card); border-radius: var(--radius-sm); display: flex; align-items: center; gap: var(--space-4);">
+                        <div style="width: 24px; height: 24px; border-radius: 4px; background: var(--course-2);"></div>
+                        <div style="flex: 1;">
+                            <div style="font-family: var(--font-display); font-size: var(--size-body); color: var(--text-primary);">Chapter 4 reading</div>
+                            <div style="font-family: var(--font-meta); font-size: var(--size-small); color: var(--text-muted);">Statistics · due tomorrow</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="padding-top: var(--space-6); border-top: 1px solid var(--border-card);">
+                <a href="{{ url_for('auth.signout') }}" style="font-family: var(--font-meta); font-size: var(--size-small); color: var(--action-primary); text-decoration: none; cursor: pointer;">Sign out</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
